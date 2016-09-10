@@ -1,3 +1,4 @@
+<h1>PHP strategy pattern example</h1>
 The strategy pattern is a software design pattern that enables an algorithm's behavior to be selected at runtime. The strategy pattern allows us to avoid successive "if" or "switch" statements, and to make behavioral changes modularly.
 
 How to run on web server:
