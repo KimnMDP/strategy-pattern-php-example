@@ -30,14 +30,12 @@ class ConcreteStrategyC implements IStrategy
 
 class Context 
 {
-    var $strategy;
-
     public function __construct(IStrategy $strategy) 
     {
         $this->strategy = $strategy;
     }
 
-    public function execute() 
+    public function update() 
     {
         $this->strategy->execute();
     }
@@ -49,9 +47,10 @@ class StrategyExample
     {
         $concreteStrategyClassName = 'ConcreteStrategy' . $_REQUEST['strategy'];
         $context = new Context(new  $concreteStrategyClassName);
-        $context->execute();
+        $context->update();
     }
 }
 
 new StrategyExample;
+
 ?>
