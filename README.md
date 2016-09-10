@@ -10,6 +10,6 @@ strategy/strategy_refact_01/?strategy=B
 OR
 strategy/strategy_refact_01/?strategy=C
 
-The UML Class diagram of example:
+The UML class diagram of this example:
 
 ![Alt text](/uml/strategy.png?raw=true "PHP Strategy Pattern Example")
