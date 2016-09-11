@@ -52,5 +52,4 @@ class StrategyExample
 }
 
 new StrategyExample;
-
 ?>

@@ -15,5 +15,4 @@ class Context
         $this->strategy->execute();
     }
 }
-
 ?>
