@@ -6,21 +6,23 @@
 * Released under the GPL3 license
 * https://opensource.org/licenses/GPL-3.0
 **/
+require_once "PathsProviderInterface.php";
     
 class Autoloader
 {
-    private static $loader;
+    private static $instance;
+    private $pathsProvider;
     
-    public static function init()
+    public static function initWith(PathsProviderInterface $pathsProvider)
     {
-        if (!(self::$loader instanceof self))
+        if (!(self::$instance instanceof self))
         {
-            self::$loader=new self();
+            self::$instance = new self($pathsProvider);
         }
-        return self::$loader;
+        return self::$instance;
     }
 
-    private function __construct()
+    private function __construct(PathsProviderInterface $pathsProvider)
     {
         /*** nullify any existing autoloads ***/
         spl_autoload_register(null, false);
@@ -30,9 +32,12 @@ class Autoloader
 
         /*** register the loader functions ***/
         spl_autoload_register( array($this, 'loadClasses') );
+
+        /*** Dependency inyection ***/
+        $this->pathsProvider = $pathsProvider;
     }
 
-    //to_prevent cloned:
+    /*** to_prevent cloned: ***/
     private function __clone()
     {
         trigger_error
@@ -42,7 +47,7 @@ class Autoloader
         );
     }
 
-    //to prevent deserialization:
+    /*** to prevent deserialization: ***/
     private function __wakeup()
     {
         trigger_error
@@ -52,13 +57,18 @@ class Autoloader
         );
     }
  
-    /*** class Loaders ***/
+    /*** class loader ***/
     private function loadClasses($class)
     {
         $filename = $class . '.php';
-        if (file_exists($filename))
+        
+        $paths = $this->pathsProvider->getPaths();
+        foreach ($paths as $path) 
         {
-            require_once $filename;
+            if (file_exists($path . $filename))
+            {
+                require_once $path . $filename;
+            }
         }
     }
 }

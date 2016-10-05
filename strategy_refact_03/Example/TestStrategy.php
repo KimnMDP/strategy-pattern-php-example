@@ -1,5 +1,5 @@
 <?php
-class StrategyExample 
+class TestStrategy
 {
     public function __construct() 
     {

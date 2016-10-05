@@ -45,7 +45,9 @@ class StrategyExample
 {
     public function __construct() 
     {
-        $concreteStrategyClassName = 'ConcreteStrategy' . $_REQUEST['strategy'];
+        (isset($_REQUEST['strategy']) AND !empty($_REQUEST['strategy'])) ? 
+            $strategy = $_REQUEST['strategy'] : $strategy = 'A';
+        $concreteStrategyClassName = 'ConcreteStrategy' . $strategy;
         $context = new Context(new  $concreteStrategyClassName);
         $context->update();
     }
