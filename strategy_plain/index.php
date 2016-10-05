@@ -45,10 +45,10 @@ class StrategyExample
 {
     public function __construct() 
     {
-        (isset($_REQUEST['strategy']) AND !empty($_REQUEST['strategy'])) ? 
-            $strategy = $_REQUEST['strategy'] : $strategy = 'A';
-        $concreteStrategyClassName = 'ConcreteStrategy' . $strategy;
-        $context = new Context(new  $concreteStrategyClassName);
+        isset($_REQUEST['strategy']) ? $strategy = $_REQUEST['strategy'] : $strategy = 'A';
+        $className = 'ConcreteStrategy' . $strategy;
+        class_exists($className) ? : $className = 'ConcreteStrategyA';
+        $context = new Context(new  $className);
         $context->update();
     }
 }
